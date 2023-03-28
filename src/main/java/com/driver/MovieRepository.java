@@ -10,10 +10,17 @@ import java.util.Map;
 @Repository
 public class MovieRepository {
 
-    HashMap<String, Movie> movieDb = new HashMap<>();
-    HashMap<String, Director> directorDb = new HashMap<>();
+    HashMap<String, Movie> movieDb;// = new HashMap<>();
+    HashMap<String, Director> directorDb;// = new HashMap<>();
  //   HashMap<String,String> movieDirectorPair = new HashMap<>();
-    HashMap<String,List<String>> movieDirectorPair = new HashMap<>();//director -- List of movies
+    HashMap<String,List<String>> movieDirectorPair;// = new HashMap<>();//director -- List of movies
+
+
+    public MovieRepository() {
+        this.movieDb = new HashMap<>();
+        this.directorDb = new HashMap<>();
+        this.movieDirectorPair = new HashMap<>();
+    }
 
     public String addMovie(Movie movie){
 
@@ -38,14 +45,20 @@ public class MovieRepository {
         }
 
         list.add(movieName);
-
+        movieDirectorPair.put(directorName,list);
         return "director- movie pair added duccessfully";
     }
     public Movie getMovieByName(String movieName){
-        return movieDb.get(movieName);
+        if(movieDb.containsKey(movieName)){
+            return movieDb.get(movieName);
+        }
+        return null;
     }
     public Director getDirectorByName(String directorName){
-        return directorDb.get(directorName);
+        if(directorDb.containsKey(directorName)){
+            return directorDb.get(directorName);
+        }
+        return null;
     }
 
     public List<String> getMoviesByDirectorName(String directorName){
